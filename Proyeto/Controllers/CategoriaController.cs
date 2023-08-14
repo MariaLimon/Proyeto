@@ -7,11 +7,15 @@ namespace Proyeto.Controllers
     public class CategoriaController : Controller
     {
         CategoriaDatos _datos = new CategoriaDatos();
+
+        [HttpGet]
         public IActionResult Index()
         {
             List<CategoriaModel> lista = _datos.Listar();
-            return View(lista);
+            return View(lista); 
         }
+
+        [HttpGet]
         public ActionResult Create()
         {
             return View();

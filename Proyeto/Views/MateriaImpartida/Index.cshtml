@@ -1,0 +1,85 @@
+﻿@model IEnumerable<Proyeto.Models.MateriaImpartidaModel>
+
+@{
+    ViewData["Title"] = "Materia Impartida";
+}
+
+
+<link rel="stylesheet" href='~/css/StyleSheet1.css' />
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+<link rel="stylesheet" href='~/css/footerFelcidades.css' />
+
+
+<h1>Materia Impartida</h1>
+<div class="row">
+<p>
+    <a asp-action="Crear">Nuevo</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdMateria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Matricula)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Carrera)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Materia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Grupo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FechaCuatri)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UrlDocumento)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdAutor1)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdMateria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Matricula)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Carrera)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Materia)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Grupo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaCuatri)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UrlDocumento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdAutor1)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new {  id=item.IdMateria }) |
+                @Html.ActionLink("Detalles", "Detalle", new {  id=item.IdMateria}) |
+                @Html.ActionLink("Eliminar", "Eliminar", new {  id=item.IdMateria })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</div>
+

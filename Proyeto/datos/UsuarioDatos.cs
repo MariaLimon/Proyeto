@@ -60,6 +60,33 @@ namespace Proyeto.datos
         }
 
 
+        public UsuarioModel ObtenerByAutor(int idAutor)
+        {
+            UsuarioModel _usuario = new UsuarioModel();
+            var cn = new Conexion();
+            using (var conexion = new SqlConnection(cn.getCadenaSql()))
+            {
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand("sp_UsuarioObtenerByAutor", conexion);
+                cmd.Parameters.AddWithValue("IdAutor", idAutor);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+
+                        _usuario.NombreUsuario = dr["NombreUsuario"].ToString();
+                        _usuario.Correo = dr["Correo"].ToString();
+                        _usuario.Contrasena = dr["Contrasena"].ToString();
+                        _usuario.IdAutor1 = Convert.ToInt32(dr["IdAutor1"]);
+                    }
+                }
+            }
+            return _usuario;
+        }
+
+
 
         public UsuarioModel Login(string NombreUsuario, string Contrasena)
         {
@@ -82,6 +109,7 @@ namespace Proyeto.datos
                         _usuario.Correo = dr["Correo"].ToString();
                         _usuario.Contrasena = dr["Contrasena"].ToString();
                         _usuario.IdAutor1 = Convert.ToInt32(dr["IdAutor1"]);
+                        _usuario.EsAdmin = dr["EsAdmin"]!=DBNull.Value? Convert.ToInt32(dr["EsAdmin"]) : 0  ;
                     }
                 }
             }

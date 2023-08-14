@@ -32,7 +32,7 @@ namespace Proyeto.Controllers
         {
             UsuarioModel us = _usuarioDatos.Login(nombreUsuario, contrasena);
             //UsuarioModel? us = _context.Usuarios.Where(u => u.NombreUsuario == nombreUs && u.Contrasena == contrasena).FirstOrDefault();
-            if (us == null)
+            if (us.NombreUsuario == null)
             {
                 ViewData["msj"] = "Usuario o contraseña invalida";
                 return View();
@@ -42,8 +42,16 @@ namespace Proyeto.Controllers
                
                 HttpContext.Session.SetString("usuario", us.NombreUsuario);
                 HttpContext.Session.SetString("autor", us.IdAutor1.ToString());
-
-                return RedirectToAction("Entrada", "Home");
+                HttpContext.Session.SetString("EsAdmin", us.EsAdmin.ToString());
+                if (us.EsAdmin == 1)
+                {
+                    return RedirectToAction("Index", "Usuario");
+                }
+                else
+                {
+                    return RedirectToAction("Entrada", "Home");
+                    
+                }
             }
 
         }

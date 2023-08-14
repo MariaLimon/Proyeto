@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Categoria";
+    Layout = "~/Views/Shared/_Layout_Admin.cshtml";
 }
 
 <link rel="stylesheet" href='~/css/StyleSheet1.css' />
@@ -11,7 +12,7 @@
 
 
 <div class="row">
-    <h4>CategoriaModel</h4>
+    <h4>Categoria</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -35,7 +36,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Editar", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Editar", "Edit", new {  id = Model.IdCategoria  }) |
     <a asp-action="Index">Regresar</a>
 </div>
 
