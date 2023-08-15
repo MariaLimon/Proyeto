@@ -3,11 +3,14 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Proyeto.datos;
 using Proyeto.Models;
+using Proyeto.Recursos;
+using static Proyeto.datos.UsuarioDatos;
 
 namespace Proyeto.Controllers
 {
     public class UsuarioController : Controller
     {
+        UsuarioDatos LogR = new UsuarioDatos();
         UsuarioAutorDatos _datos = new UsuarioAutorDatos();
         AutorDatos _datosAutor = new AutorDatos();
         UsuarioDatos _datosUsuario = new UsuarioDatos();
@@ -158,6 +161,29 @@ namespace Proyeto.Controllers
                 return View();
             }
         }
+
+        
+            
+            public IActionResult CambiarContrasena()
+            {
+                return View();
+            }
+            [HttpPost]
+            public IActionResult CambiarContrasena(string Correo, string Contrasena)
+            {
+
+                bool respuesta = LogR.CambiarContrasena(Correo, Utilidades.EncriptarClave(Contrasena));
+                if (!respuesta)
+                {
+                    ViewData["Mensaje"] = "El correo no existe";
+                    return View();
+                }
+                else
+                {
+                    return RedirectToAction();
+                }
+            }
+        
 
 
     }

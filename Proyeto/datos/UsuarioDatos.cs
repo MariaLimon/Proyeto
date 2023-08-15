@@ -1,6 +1,7 @@
 ﻿using System.Data.SqlClient;
 using System.Data;
 using Proyeto.Models;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace Proyeto.datos
 {
@@ -201,7 +202,64 @@ namespace Proyeto.datos
         }
 
 
+        //cambiar contraseña
+        public bool CambiarContrasena(string Correo, string Contrasena)
+        {
+            bool respuesta;
+            try
+            {
+                var cn = new Conexion();
+                using (var conexion = new SqlConnection(cn.getCadenaSql()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("sp_CambiarContrasena", conexion);
+                    cmd.Parameters.AddWithValue("Correo", Correo);
+                    cmd.Parameters.AddWithValue("Contrasena", Contrasena);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.ExecuteNonQuery();
+                }
+                respuesta = true;
+            }
+            catch (Exception ex)
+            {
+                string error = ex.Message;
+                respuesta = false;
+            }
+            return respuesta;
+        }
 
+        //existe correo 
+        public class LoginRegistrer
+        {
+            public bool existeCorreo(string Correo)
+            {
+                string eCorreo = "";
+                var cn = new Conexion();
+                using (var conexion = new SqlConnection(cn.getCadenaSql()))
+                {
+                    conexion.Open();
+                    SqlCommand cmd = new SqlCommand("sp_ValidarCorreo", conexion);
+                    cmd.Parameters.AddWithValue("Correo", Correo);
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    using (var dr=cmd.ExecuteReader())
+                    {
+                        while(dr.Read())
+                        {
+                            eCorreo = dr["Correo"].ToString();
+                        }
+
+                    }
+                }
+                if(eCorreo == "")
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
 
 
     }
