@@ -1,11 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace Proyeto.Models
+using System.Diagnostics;
+
+namespace Proyeto.Models;
+
+[DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
+public record CambiarContraModel(int Correo, [property: Required] string Contrasena)
 {
-    public class CambiarContraModel
+    private string GetDebuggerDisplay()
     {
-        public int Correo { get; set; }
-        [Required]
-        public string Contrasena { get; set; }
-        [Required]
+        return ToString();
     }
 }
+
