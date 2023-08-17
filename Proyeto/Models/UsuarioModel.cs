@@ -1,4 +1,6 @@
-﻿using System;
+﻿//using Microsoft.Build.Framework;
+using System;
+using System.ComponentModel.DataAnnotations;
 using System.Collections.Generic;
 
 namespace Proyeto.Models;
@@ -15,7 +17,8 @@ public partial class UsuarioModel
 
     public int? EsAdmin { get; set; }
 
-
+    public RolModel refRol { get; set; }
+    [Required(ErrorMessage = "Este campo es obligatorio")]
 
     public virtual AutorModel? Autor { get; set; }
 }

@@ -2,11 +2,13 @@
 using System.Data;
 using Proyeto.Models;
 using Microsoft.AspNetCore.Components.Forms;
+using Proyeto.Recursos;
 
 namespace Proyeto.datos
 {
     public class UsuarioDatos
     {
+        Utilidades u;
         public List<UsuarioModel> Listar()
         {
             List<UsuarioModel> Lista = new List<UsuarioModel>();
@@ -27,6 +29,39 @@ namespace Proyeto.datos
                            Correo = dr["Correo"].ToString(),
                            Contrasena = dr["Contrasena"].ToString(),
                            IdAutor1 = Convert.ToInt32(dr["IdAutor1"])
+                           refCategoria = new RolModel
+                           {
+                               IdRol = Convert.ToInt32(dr["IdRol"]),
+                               NombreRol = dr["NombreRol"].ToString()
+                           }
+                        });
+                    }
+                }
+            }
+            return Lista;
+        }
+        //lista sin categoria
+        public List<UsuarioModel> Listar()
+        {
+            List<UsuarioModel> Lista = new List<UsuarioModel>();
+            var cn = new Conexion();
+            using (var conexion = new SqlConnection(cn.getCadenaSql()))
+            {
+                conexion.Open();
+                SqlCommand cmd = new SqlCommand("sp_UsuarioListar", conexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                using (var dr = cmd.ExecuteReader())
+                {
+                    while (dr.Read())
+                    {
+                        Lista.Add(new UsuarioModel
+                        {
+                            NombreUsuario = dr["NombreUsuario"].ToString(),
+                            Correo = dr["Correo"].ToString(),
+                            Contrasena = dr["Contrasena"].ToString(),
+                            IdAutor1 = Convert.ToInt32(dr["IdAutor1"])
+                           
                         });
                     }
                 }

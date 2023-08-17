@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Proyeto.datos;
 using Proyeto.Models;
@@ -26,7 +27,7 @@ namespace Proyeto.Controllers
         {
             return View();
         }
-
+        [Authorize(Roles = "Admin, Docente")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Crear(IFormFile Archivo, [Bind("IdMateria, Matricula, Carrera, Materia, Grupo, FechaCuatri, UrlDocumento, IdAutor1")] MateriaImpartidaModel materiaImpartida)
@@ -80,7 +81,7 @@ namespace Proyeto.Controllers
             return View(materiaImpartida);
         }
 
-      
+        [Authorize(Roles ="Admin, Docente")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(IFormFile Archivo, int id, [Bind("IdMateria, Matricula, Carrera, Materia, Grupo, FechaCuatri, UrlDocumento, IdAutor1")] MateriaImpartidaModel materiaImpartida)
@@ -118,7 +119,7 @@ namespace Proyeto.Controllers
             }
         }
 
-       
+        [Authorize(Roles = "Admin, Docente")]
         public ActionResult Eliminar(int id)
         {
             MateriaImpartidaModel materiaImpartida = _datos.Obtener(id);

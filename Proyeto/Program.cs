@@ -24,7 +24,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-/*
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
@@ -32,7 +32,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.ExpireTimeSpan = TimeSpan.FromMinutes(1); //tiempo para que expire la secion
         options.AccessDeniedPath = "/Home/Privacy"; //para mostrar formulario de acceso denegado
     });
-*/
+
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
